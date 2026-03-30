@@ -1,0 +1,202 @@
+<header class="hero">
+  <div class="hero-media">
+    <img
+      src="https://images.unsplash.com/photo-1600166898405-da9535204843?w=1600&q=80&auto=format"
+      alt="Luxury living room with hand-woven rug"
+      loading="eager"
+    />
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <p class="hero-label">Est. 2010 &mdash; San Jose, California</p>
+      <h1>The Art of<br>Rug Restoration</h1>
+      <div class="hero-rule"></div>
+      <p class="hero-desc">Museum-grade care for your most treasured textiles. We serve Silicon Valley's most discerning homes with expert cleaning, restoration, and preservation.</p>
+      <div class="hero-actions">
+        <a href="#quote" class="btn btn-gold">Request a Quote</a>
+        <a href="#services" class="btn btn-outline">Explore Services</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">15,000+</span>
+        <span class="stat-label">Rugs Restored</span>
+      </div>
+      <div class="stat-line"></div>
+      <div class="stat">
+        <span class="stat-num">500+</span>
+        <span class="stat-label">5-Star Reviews</span>
+      </div>
+      <div class="stat-line"></div>
+      <div class="stat">
+        <span class="stat-num">14</span>
+        <span class="stat-label">Years of Excellence</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .hero {
+    position: relative;
+    height: calc(60vh + 72px);
+    min-height: 492px;
+    max-height: 652px;
+    padding-top: 72px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(17, 17, 17, 0.85) 0%,
+      rgba(17, 17, 17, 0.5) 40%,
+      rgba(17, 17, 17, 0.3) 100%
+    );
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding-bottom: 32px;
+    width: 100%;
+  }
+
+  .hero-content {
+    max-width: 580px;
+    margin-bottom: 24px;
+  }
+
+  .hero-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    color: var(--white);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .hero-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.75;
+    margin-bottom: 32px;
+    max-width: 460px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--white);
+    font-weight: 400;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 500;
+  }
+
+  .stat-line {
+    width: 1px;
+    height: 32px;
+    background: rgba(255,255,255,0.12);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      height: 60vh;
+      min-height: 380px;
+      max-height: 520px;
+    }
+
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .hero-actions .btn {
+      text-align: center;
+    }
+
+    .hero-stats {
+      gap: 20px;
+    }
+
+    .stat-num {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-stats {
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .stat-line {
+      display: none;
+    }
+  }
+</style>

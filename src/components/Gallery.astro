@@ -1,0 +1,43 @@
+<section class="gallery">
+  <div class="gallery-scroll">
+    <img src="https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=480&q=80&auto=format" alt="Persian rug detail" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=480&q=80&auto=format" alt="Modern interior with rug" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=480&q=80&auto=format" alt="Silicon Valley home" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=480&q=80&auto=format" alt="Luxury interior" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=480&q=80&auto=format" alt="Bright living space" loading="lazy" />
+  </div>
+</section>
+
+<style>
+  .gallery {
+    padding: 2px 0;
+    background: var(--warm-white);
+    overflow: hidden;
+  }
+
+  .gallery-scroll {
+    display: flex;
+    gap: 2px;
+    height: 200px;
+  }
+
+  .gallery-scroll img {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.7) brightness(0.95);
+    transition: all 0.5s ease;
+  }
+
+  .gallery-scroll img:hover {
+    flex: 1.8;
+    filter: saturate(1) brightness(1);
+  }
+
+  @media (max-width: 640px) {
+    .gallery-scroll {
+      height: 140px;
+    }
+  }
+</style>

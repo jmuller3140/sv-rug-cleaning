@@ -1,0 +1,175 @@
+/* ========== RESET & BASE ========== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Refined palette — warm neutrals + muted gold */
+  --black: #111111;
+  --charcoal: #1c1c1c;
+  --dark: #2a2a28;
+  --stone-900: #3a3a38;
+  --stone-700: #5c5c58;
+  --stone-500: #8a8a84;
+  --stone-300: #c4c2bc;
+  --stone-200: #dddbd5;
+  --stone-100: #eeecea;
+  --cream: #f7f6f3;
+  --warm-white: #faf9f7;
+  --white: #ffffff;
+  --gold: #b39956;
+  --gold-muted: #c9b172;
+  --gold-light: #e8dcc0;
+  --gold-faint: rgba(179, 153, 86, 0.06);
+  --accent: #8b7355;
+
+  --radius: 4px;
+  --radius-lg: 8px;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.08);
+
+  /* Typography */
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', sans-serif;
+  --tracking-wide: 0.12em;
+  --tracking-normal: 0.02em;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--stone-700);
+  line-height: 1.65;
+  background: var(--warm-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ========== SECTIONS ========== */
+.section {
+  padding: 100px 0;
+}
+
+.section-label {
+  display: block;
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 12px;
+  color: var(--charcoal);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--stone-500);
+  margin-bottom: 56px;
+  font-size: 0.95rem;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+/* ========== BUTTONS ========== */
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+  font-family: var(--font-sans);
+}
+
+.btn-primary {
+  background: var(--charcoal);
+  color: var(--white);
+  border-color: var(--charcoal);
+}
+
+.btn-primary:hover {
+  background: var(--black);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(255,255,255,0.06);
+}
+
+.btn-gold {
+  background: var(--gold);
+  color: var(--white);
+  border-color: var(--gold);
+}
+
+.btn-gold:hover {
+  background: var(--gold-muted);
+  border-color: var(--gold-muted);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--charcoal);
+  border: 1px solid var(--stone-300);
+  padding: 10px 24px;
+  font-size: 0.75rem;
+}
+
+.btn-secondary:hover {
+  border-color: var(--charcoal);
+}
+
+/* ========== DIVIDER ========== */
+.divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  margin: 0 auto 20px;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .section {
+    padding: 64px 0;
+  }
+}

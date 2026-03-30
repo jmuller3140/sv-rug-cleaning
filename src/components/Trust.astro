@@ -1,0 +1,86 @@
+<section class="section trust">
+  <div class="container">
+    <span class="section-label">Client Testimonials</span>
+    <h2 class="section-title">Trusted by Silicon Valley's<br>Most Discerning Homes</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">Our clients include homeowners across Atherton, Los Altos Hills, Palo Alto, Saratoga, and the wider Bay Area.</p>
+
+    <div class="testimonials">
+      <div class="testimonial">
+        <blockquote>"They identified our silk Isfahan's origin and recommended the exact treatment it needed. Returned it looking better than the day we bought it in Tehran."</blockquote>
+        <div class="t-author">
+          <strong>Sarah M.</strong>
+          <span>Atherton</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>"We entrust all twelve of our rugs to SVRC annually. Their attention to detail is unmatched — museum conservators have commented on the condition."</blockquote>
+        <div class="t-author">
+          <strong>David K.</strong>
+          <span>Los Altos Hills</span>
+        </div>
+      </div>
+      <div class="testimonial">
+        <blockquote>"Used the rush service before our home was photographed for Dwell. The rugs were immaculate in 48 hours. They've earned a client for life."</blockquote>
+        <div class="t-author">
+          <strong>Priya L.</strong>
+          <span>Cupertino</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .trust {
+    background: var(--cream);
+  }
+
+  .testimonials {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial {
+    padding: 32px 28px;
+    border: 1px solid var(--stone-200);
+    border-radius: var(--radius);
+    background: var(--white);
+  }
+
+  .testimonial blockquote {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--stone-700);
+    margin-bottom: 20px;
+    font-style: normal;
+  }
+
+  .t-author {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid var(--stone-100);
+  }
+
+  .t-author strong {
+    font-size: 0.82rem;
+    color: var(--charcoal);
+    font-weight: 600;
+  }
+
+  .t-author span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--stone-500);
+  }
+
+  @media (max-width: 900px) {
+    .testimonials { grid-template-columns: 1fr; max-width: 520px; margin: 0 auto; }
+  }
+</style>

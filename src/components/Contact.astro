@@ -1,0 +1,97 @@
+<section id="contact" class="section contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-left">
+        <span class="section-label" style="text-align:left">Get in Touch</span>
+        <h2>Visit Our Atelier</h2>
+        <div class="c-rule"></div>
+        <p class="contact-desc">Our facility is open for drop-offs and consultations. For pickup service, simply request a quote above and we'll handle everything.</p>
+      </div>
+      <div class="contact-right">
+        <div class="contact-items">
+          <div class="c-item">
+            <span class="c-label">Telephone</span>
+            <span class="c-value">(408) 555-7847</span>
+          </div>
+          <div class="c-item">
+            <span class="c-label">Email</span>
+            <span class="c-value">hello@svrugcleaning.com</span>
+          </div>
+          <div class="c-item">
+            <span class="c-label">Address</span>
+            <span class="c-value">123 Clean Street, San Jose, CA 95110</span>
+          </div>
+          <div class="c-item">
+            <span class="c-label">Hours</span>
+            <span class="c-value">Monday–Friday 8am–6pm<br>Saturday 9am–3pm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--warm-white);
+    border-top: 1px solid var(--stone-100);
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 12px;
+  }
+
+  .c-rule {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .contact-desc {
+    color: var(--stone-500);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .c-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .c-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--gold);
+  }
+
+  .c-value {
+    font-size: 0.95rem;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .contact-layout { grid-template-columns: 1fr; gap: 36px; }
+  }
+</style>

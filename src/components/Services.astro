@@ -1,0 +1,133 @@
+---
+const services = [
+  {
+    title: 'Immersive Cleaning',
+    desc: 'Full submersion wash tailored to each fiber. We identify the optimal process for wool, silk, cotton, and blended textiles.',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80&auto=format',
+    imgAlt: 'Professional textile cleaning',
+  },
+  {
+    title: 'Stain & Soil Treatment',
+    desc: 'Three tiers of treatment — from light surface refreshing to deep extraction of pet stains and years of embedded grime.',
+    img: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80&auto=format',
+    imgAlt: 'Detail cleaning on rug fibers',
+  },
+  {
+    title: 'Protective Coating',
+    desc: 'Invisible sealant that repels spills and resists soiling. Extends the life of your investment without altering texture or color.',
+    img: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=600&q=80&auto=format',
+    imgAlt: 'Protected rug in contemporary space',
+  },
+  {
+    title: 'Moth & Pest Prevention',
+    desc: 'Archival-grade treatment that deters moths and pests. Essential for wool rugs and seasonal storage of valuable pieces.',
+    img: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&q=80&auto=format',
+    imgAlt: 'Preserved hand-knotted rug',
+  },
+  {
+    title: 'Rush Service',
+    desc: 'Expedited 2–3 day turnaround for time-sensitive needs. Perfect before events, moves, or real estate showings.',
+    img: 'https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=600&q=80&auto=format',
+    imgAlt: 'Silicon Valley skyline',
+  },
+  {
+    title: 'Complimentary Pickup',
+    desc: 'White-glove pickup and delivery throughout Silicon Valley and the greater Bay Area. No minimum, no extra charge.',
+    img: 'https://images.unsplash.com/photo-1515150144380-bca9f1650ed9?w=600&q=80&auto=format',
+    imgAlt: 'Bay Area residential street',
+  },
+];
+---
+
+<section id="services" class="section services">
+  <div class="container">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Craftsmanship in Every Fiber</h2>
+    <div class="divider"></div>
+    <p class="section-subtitle">Each rug receives individualized attention from our master technicians, ensuring museum-quality results.</p>
+
+    <div class="services-grid">
+      {services.map((s, i) => (
+        <div class={`service-card ${i % 2 === 1 ? 'service-card--alt' : ''}`}>
+          <div class="service-img">
+            <img src={s.img} alt={s.imgAlt} loading="lazy" />
+          </div>
+          <div class="service-body">
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services {
+    background: var(--warm-white);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .service-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--stone-100);
+    transition: all 0.4s ease;
+  }
+
+  .service-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .service-img {
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .service-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    filter: saturate(0.85);
+  }
+
+  .service-card:hover .service-img img {
+    transform: scale(1.04);
+    filter: saturate(1);
+  }
+
+  .service-body {
+    padding: 28px 24px;
+  }
+
+  .service-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: var(--charcoal);
+  }
+
+  .service-body p {
+    color: var(--stone-500);
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 900px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .service-img { height: 180px; }
+  }
+</style>
