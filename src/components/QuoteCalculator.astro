@@ -6,14 +6,8 @@
         <span class="section-label" style="text-align:left">Complimentary Estimate</span>
         <h2>Request Your<br>Personalized Quote</h2>
         <div class="ed-rule"></div>
-        <p>Describe your rugs and we'll prepare a detailed estimate. Most quotes are returned within two hours during business hours.</p>
-
-        <ul class="ed-perks">
-          <li>No obligation, entirely complimentary</li>
-          <li>White-glove pickup & delivery included</li>
-          <li>Volume discounts for 3+ pieces</li>
-          <li>5–7 day standard turnaround</li>
-        </ul>
+        <p>Describe your rug and we'll prepare a detailed estimate. Most quotes are returned within two hours during business hours.</p>
+        <p class="ed-secondary">No obligation. White-glove pickup and delivery included. Volume discounts available for multiple pieces.</p>
 
         <div class="ed-image">
           <img
@@ -29,9 +23,9 @@
         <!-- Progress -->
         <div class="progress-bar" id="progressBar">
           <div class="progress-step active" data-step="1">
-            <span class="p-num">1</span><span class="p-label">Your Rugs</span>
+            <span class="p-num">1</span><span class="p-label">Your Rug</span>
           </div>
-          <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-line"><div class="progress-fill"></div></div>
           <div class="progress-step" data-step="2">
             <span class="p-num">2</span><span class="p-label">Preferences</span>
           </div>
@@ -41,12 +35,58 @@
           </div>
         </div>
 
-        <!-- STEP 1: Rug details -->
+        <!-- STEP 1: Rug details — inline, no JS needed for first rug -->
         <div class="form-step" id="step1">
-          <div id="rugCards"></div>
+          <div id="rugCards">
+            <div class="rug-card" data-rug="1">
+              <div class="rc-grid">
+                <div class="rc-field">
+                  <label>Material</label>
+                  <select class="f-material">
+                    <option value="">Select...</option>
+                    <option value="Wool">Wool</option>
+                    <option value="Silk">Silk</option>
+                    <option value="Cotton">Cotton</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="rc-field">
+                  <label>Construction</label>
+                  <select class="f-construction">
+                    <option value="">Select...</option>
+                    <option value="Machine-Made">Machine-Made</option>
+                    <option value="Hand-Made">Hand-Made</option>
+                  </select>
+                </div>
+                <div class="rc-field">
+                  <label>Length (ft)</label>
+                  <input type="number" class="f-length" min="1" step="0.5" placeholder="10" />
+                </div>
+                <div class="rc-field">
+                  <label>Width (ft)</label>
+                  <input type="number" class="f-width" min="1" step="0.5" placeholder="8" />
+                </div>
+                <div class="rc-field rc-field-full">
+                  <label>Condition</label>
+                  <select class="f-soil">
+                    <option value="none">Clean — maintenance wash</option>
+                    <option value="light">Light soiling</option>
+                    <option value="medium" selected>Moderate stains</option>
+                    <option value="heavy">Heavy / pet damage</option>
+                  </select>
+                </div>
+              </div>
+              <div class="rc-foot">
+                <span class="rc-sqft"></span>
+                <span class="rc-price"></span>
+              </div>
+            </div>
+          </div>
+
           <button type="button" class="btn-add" id="addRugBtn">
             <span>+</span> Add Another Rug
           </button>
+
           <div class="step-actions">
             <div></div>
             <button type="button" class="btn btn-primary" id="toStep2">Continue</button>
@@ -165,194 +205,187 @@
   </div>
 </section>
 
-<script>
-  const RATES = {
-    cleaningPrice: {
-      'Wool': [4.00, 5.50], 'Silk': [5.00, 10.00],
-      'Cotton': [3.00, 4.00], 'Other': [2.00, 3.00],
-    } as Record<string, number[]>,
-    soilRemoval: { 'none': 0, 'light': 0.75, 'medium': 1.50, 'heavy': 3.00 } as Record<string, number>,
-    stainProtection: 1.50, mothPrevention: 0.50,
-    minimumCharge: 50, taxRate: 0.08, rushSurcharge: 0.25,
-    discount3: 0.05, discount5: 0.10,
-  };
+<script is:inline>
+  (function() {
+    var RATES = {
+      cleaningPrice: {
+        'Wool': [4.00, 5.50], 'Silk': [5.00, 10.00],
+        'Cotton': [3.00, 4.00], 'Other': [2.00, 3.00],
+      },
+      soilRemoval: { 'none': 0, 'light': 0.75, 'medium': 1.50, 'heavy': 3.00 },
+      stainProtection: 1.50, mothPrevention: 0.50,
+      minimumCharge: 50, taxRate: 0.08, rushSurcharge: 0.25,
+      discount3: 0.05, discount5: 0.10,
+    };
 
-  let rugId = 0;
+    var rugCount = 1;
 
-  function makeCard(): HTMLElement {
-    rugId++;
-    const el = document.createElement('div');
-    el.className = 'rug-card';
-    el.innerHTML = `
-      <div class="rc-head">
-        <span class="rc-title">Rug <span class="rc-num">${rugId}</span></span>
-        <button type="button" class="rc-remove" title="Remove">&times;</button>
-      </div>
-      <div class="rc-grid">
-        <div class="rc-field">
-          <label>Material</label>
-          <select class="f-material">
-            <option value="">Select...</option>
-            <option>Wool</option><option>Silk</option><option>Cotton</option><option>Other</option>
-          </select>
-        </div>
-        <div class="rc-field">
-          <label>Construction</label>
-          <select class="f-construction">
-            <option value="">Select...</option>
-            <option>Machine-Made</option><option>Hand-Made</option>
-          </select>
-        </div>
-        <div class="rc-field">
-          <label>Length (ft)</label>
-          <input type="number" class="f-length" min="1" step="0.5" placeholder="10" />
-        </div>
-        <div class="rc-field">
-          <label>Width (ft)</label>
-          <input type="number" class="f-width" min="1" step="0.5" placeholder="8" />
-        </div>
-        <div class="rc-field rc-field-full">
-          <label>Condition</label>
-          <select class="f-soil">
-            <option value="none">Clean — maintenance wash</option>
-            <option value="light">Light soiling</option>
-            <option value="medium" selected>Moderate stains</option>
-            <option value="heavy">Heavy / pet damage</option>
-          </select>
-        </div>
-      </div>
-      <div class="rc-foot">
-        <span class="rc-sqft"></span>
-        <span class="rc-price"></span>
-      </div>
-    `;
-    return el;
-  }
-
-  function renumber() {
-    document.querySelectorAll('.rug-card').forEach((c, i) => {
-      c.querySelector('.rc-num')!.textContent = String(i + 1);
-    });
-  }
-
-  function calc() {
-    const cards = document.querySelectorAll('.rug-card');
-    const rush = (document.querySelector('input[name="timeline"][value="rush"]') as HTMLInputElement)?.checked || false;
-    const stain = (document.getElementById('addonStain') as HTMLInputElement)?.checked || false;
-    const moth = (document.getElementById('addonMoth') as HTMLInputElement)?.checked || false;
-
-    let count = 0, sub = 0, sqftTotal = 0;
-
-    cards.forEach(c => {
-      const mat = (c.querySelector('.f-material') as HTMLSelectElement).value;
-      const con = (c.querySelector('.f-construction') as HTMLSelectElement).value;
-      const l = parseFloat((c.querySelector('.f-length') as HTMLInputElement).value) || 0;
-      const w = parseFloat((c.querySelector('.f-width') as HTMLInputElement).value) || 0;
-      const soil = (c.querySelector('.f-soil') as HTMLSelectElement).value;
-      const sqft = l * w;
-
-      c.querySelector('.rc-sqft')!.textContent = sqft > 0 ? sqft + ' sq ft' : '';
-      if (!mat || !con || sqft === 0) { c.querySelector('.rc-price')!.textContent = ''; return; }
-
-      count++;
-      sqftTotal += sqft;
-      const idx = con === 'Machine-Made' ? 0 : 1;
-      const clean = Math.max(sqft * RATES.cleaningPrice[mat][idx], RATES.minimumCharge);
-      const soilFee = RATES.soilRemoval[soil] * sqft;
-      const line = clean + soilFee;
-      sub += line;
-      c.querySelector('.rc-price')!.textContent = '$' + line.toFixed(2);
-    });
-
-    const stainFee = stain ? sqftTotal * RATES.stainProtection : 0;
-    const mothFee = moth ? sqftTotal * RATES.mothPrevention : 0;
-    sub += stainFee + mothFee;
-
-    let disc = 0;
-    if (count >= 5) disc = RATES.discount5;
-    else if (count >= 3) disc = RATES.discount3;
-
-    const discAmt = sub * disc;
-    const afterDisc = sub - discAmt;
-    const rushAmt = rush ? afterDisc * RATES.rushSurcharge : 0;
-    const preTax = afterDisc + rushAmt;
-    const tax = preTax * RATES.taxRate;
-    const total = preTax + tax;
-
-    const ep = document.getElementById('estPrice');
-    if (ep) ep.textContent = count > 0 ? '$' + total.toFixed(2) : '$0';
-
-    const el = document.getElementById('estLines');
-    if (el && count > 0) {
-      let h = `<div class="el-row"><span>${count} rug${count > 1 ? 's' : ''}, ${sqftTotal} sqft</span><span>$${(sub - stainFee - mothFee).toFixed(2)}</span></div>`;
-      if (stainFee) h += `<div class="el-row"><span>Stain protection</span><span>$${stainFee.toFixed(2)}</span></div>`;
-      if (mothFee) h += `<div class="el-row"><span>Moth prevention</span><span>$${mothFee.toFixed(2)}</span></div>`;
-      if (disc) h += `<div class="el-row el-green"><span>Discount (${(disc*100)}%)</span><span>-$${discAmt.toFixed(2)}</span></div>`;
-      if (rushAmt) h += `<div class="el-row el-amber"><span>Rush surcharge</span><span>$${rushAmt.toFixed(2)}</span></div>`;
-      h += `<div class="el-row"><span>Tax (8%)</span><span>$${tax.toFixed(2)}</span></div>`;
-      el.innerHTML = h;
-    } else if (el) { el.innerHTML = ''; }
-
-    const fb = document.getElementById('finalBar');
-    if (fb && count > 0) {
-      fb.innerHTML = `<div class="fb-inner"><span class="fb-label">Estimated Total</span><span class="fb-price">$${total.toFixed(2)}</span><span class="fb-meta">${count} rug${count > 1 ? 's' : ''} &middot; ${sqftTotal} sqft &middot; ${rush ? 'Rush' : 'Standard'}</span></div>`;
+    function makeCard() {
+      rugCount++;
+      var el = document.createElement('div');
+      el.className = 'rug-card';
+      el.dataset.rug = String(rugCount);
+      el.innerHTML =
+        '<div class="rc-head">' +
+          '<span class="rc-title">Rug ' + rugCount + '</span>' +
+          '<button type="button" class="rc-remove" title="Remove">&times;</button>' +
+        '</div>' +
+        '<div class="rc-grid">' +
+          '<div class="rc-field"><label>Material</label>' +
+            '<select class="f-material"><option value="">Select...</option><option value="Wool">Wool</option><option value="Silk">Silk</option><option value="Cotton">Cotton</option><option value="Other">Other</option></select></div>' +
+          '<div class="rc-field"><label>Construction</label>' +
+            '<select class="f-construction"><option value="">Select...</option><option value="Machine-Made">Machine-Made</option><option value="Hand-Made">Hand-Made</option></select></div>' +
+          '<div class="rc-field"><label>Length (ft)</label><input type="number" class="f-length" min="1" step="0.5" placeholder="10" /></div>' +
+          '<div class="rc-field"><label>Width (ft)</label><input type="number" class="f-width" min="1" step="0.5" placeholder="8" /></div>' +
+          '<div class="rc-field rc-field-full"><label>Condition</label>' +
+            '<select class="f-soil"><option value="none">Clean — maintenance wash</option><option value="light">Light soiling</option><option value="medium" selected>Moderate stains</option><option value="heavy">Heavy / pet damage</option></select></div>' +
+        '</div>' +
+        '<div class="rc-foot"><span class="rc-sqft"></span><span class="rc-price"></span></div>';
+      return el;
     }
 
-    return { count, total, rush };
-  }
+    function wireCard(card) {
+      var inputs = card.querySelectorAll('select, input');
+      for (var i = 0; i < inputs.length; i++) {
+        inputs[i].addEventListener('input', calc);
+        inputs[i].addEventListener('change', calc);
+      }
+      var rm = card.querySelector('.rc-remove');
+      if (rm) {
+        rm.addEventListener('click', function() {
+          card.remove();
+          calc();
+        });
+      }
+    }
 
-  function goTo(n: number) {
-    [1, 2, 3].forEach(i => {
-      const s = document.getElementById('step' + i);
-      if (s) s.style.display = i === n ? '' : 'none';
+    function calc() {
+      var cards = document.querySelectorAll('.rug-card');
+      var rushEl = document.querySelector('input[name="timeline"][value="rush"]');
+      var rush = rushEl ? rushEl.checked : false;
+      var stainEl = document.getElementById('addonStain');
+      var stain = stainEl ? stainEl.checked : false;
+      var mothEl = document.getElementById('addonMoth');
+      var moth = mothEl ? mothEl.checked : false;
+
+      var count = 0, sub = 0, sqftTotal = 0;
+
+      for (var i = 0; i < cards.length; i++) {
+        var c = cards[i];
+        var mat = c.querySelector('.f-material').value;
+        var con = c.querySelector('.f-construction').value;
+        var l = parseFloat(c.querySelector('.f-length').value) || 0;
+        var w = parseFloat(c.querySelector('.f-width').value) || 0;
+        var soil = c.querySelector('.f-soil').value;
+        var sqft = l * w;
+
+        c.querySelector('.rc-sqft').textContent = sqft > 0 ? sqft + ' sq ft' : '';
+        if (!mat || !con || sqft === 0) { c.querySelector('.rc-price').textContent = ''; continue; }
+
+        count++;
+        sqftTotal += sqft;
+        var idx = con === 'Machine-Made' ? 0 : 1;
+        var clean = Math.max(sqft * RATES.cleaningPrice[mat][idx], RATES.minimumCharge);
+        var soilFee = RATES.soilRemoval[soil] * sqft;
+        var line = clean + soilFee;
+        sub += line;
+        c.querySelector('.rc-price').textContent = '$' + line.toFixed(2);
+      }
+
+      var stainFee = stain ? sqftTotal * RATES.stainProtection : 0;
+      var mothFee = moth ? sqftTotal * RATES.mothPrevention : 0;
+      sub += stainFee + mothFee;
+
+      var disc = 0;
+      if (count >= 5) disc = RATES.discount5;
+      else if (count >= 3) disc = RATES.discount3;
+
+      var discAmt = sub * disc;
+      var afterDisc = sub - discAmt;
+      var rushAmt = rush ? afterDisc * RATES.rushSurcharge : 0;
+      var preTax = afterDisc + rushAmt;
+      var tax = preTax * RATES.taxRate;
+      var total = preTax + tax;
+
+      var ep = document.getElementById('estPrice');
+      if (ep) ep.textContent = count > 0 ? '$' + total.toFixed(2) : '$0';
+
+      var el = document.getElementById('estLines');
+      if (el && count > 0) {
+        var h = '<div class="el-row"><span>' + count + ' rug' + (count > 1 ? 's' : '') + ', ' + sqftTotal + ' sqft</span><span>$' + (sub - stainFee - mothFee).toFixed(2) + '</span></div>';
+        if (stainFee) h += '<div class="el-row"><span>Stain protection</span><span>$' + stainFee.toFixed(2) + '</span></div>';
+        if (mothFee) h += '<div class="el-row"><span>Moth prevention</span><span>$' + mothFee.toFixed(2) + '</span></div>';
+        if (disc) h += '<div class="el-row el-green"><span>Discount (' + (disc*100) + '%)</span><span>-$' + discAmt.toFixed(2) + '</span></div>';
+        if (rushAmt) h += '<div class="el-row el-amber"><span>Rush surcharge</span><span>$' + rushAmt.toFixed(2) + '</span></div>';
+        h += '<div class="el-row"><span>Tax (8%)</span><span>$' + tax.toFixed(2) + '</span></div>';
+        el.innerHTML = h;
+      } else if (el) { el.innerHTML = ''; }
+
+      var fb = document.getElementById('finalBar');
+      if (fb && count > 0) {
+        fb.innerHTML = '<div class="fb-inner"><span class="fb-label">Estimated Total</span><span class="fb-price">$' + total.toFixed(2) + '</span><span class="fb-meta">' + count + ' rug' + (count > 1 ? 's' : '') + ' &middot; ' + sqftTotal + ' sqft &middot; ' + (rush ? 'Rush' : 'Standard') + '</span></div>';
+      }
+
+      return { count: count, total: total, rush: rush };
+    }
+
+    function goTo(n) {
+      for (var i = 1; i <= 3; i++) {
+        var s = document.getElementById('step' + i);
+        if (s) s.style.display = i === n ? '' : 'none';
+      }
+      var steps = document.querySelectorAll('.progress-step');
+      for (var j = 0; j < steps.length; j++) {
+        var sn = Number(steps[j].dataset.step);
+        if (sn <= n) { steps[j].classList.add('active'); } else { steps[j].classList.remove('active'); }
+      }
+      var fills = document.querySelectorAll('.progress-fill');
+      if (fills[0]) fills[0].style.width = n >= 2 ? '100%' : '0%';
+      if (fills[1]) fills[1].style.width = n >= 3 ? '100%' : '0%';
+      document.getElementById('quote').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Wire the first card that's already in the HTML
+    var firstCard = document.querySelector('.rug-card');
+    if (firstCard) wireCard(firstCard);
+
+    // Add rug button
+    document.getElementById('addRugBtn').addEventListener('click', function() {
+      var wrap = document.getElementById('rugCards');
+      var card = makeCard();
+      wrap.appendChild(card);
+      wireCard(card);
+      calc();
     });
-    document.querySelectorAll('.progress-step').forEach(s => {
-      s.classList.toggle('active', Number((s as HTMLElement).dataset.step) <= n);
+
+    // Navigation
+    document.getElementById('toStep2').addEventListener('click', function() { calc(); goTo(2); });
+    document.getElementById('toStep3').addEventListener('click', function() { calc(); goTo(3); });
+    document.getElementById('backTo1').addEventListener('click', function() { goTo(1); });
+    document.getElementById('backTo2').addEventListener('click', function() { goTo(2); });
+
+    // Recalculate on step 2 option changes
+    var step2inputs = document.querySelectorAll('#step2 input');
+    for (var k = 0; k < step2inputs.length; k++) {
+      step2inputs[k].addEventListener('change', calc);
+    }
+
+    // Submit
+    document.getElementById('submitBtn').addEventListener('click', function() {
+      var name = document.getElementById('leadName').value.trim();
+      var phone = document.getElementById('leadPhone').value.trim();
+      var email = document.getElementById('leadEmail').value.trim();
+      if (!name || !phone || !email) { alert('Please complete all required fields.'); return; }
+
+      var r = calc();
+      document.getElementById('successDetail').innerHTML =
+        '<p><strong>' + name + '</strong> &mdash; we\'ll reach you at ' + email + '</p>' +
+        '<p>Estimate: <strong>$' + r.total.toFixed(2) + '</strong> for ' + r.count + ' rug' + (r.count > 1 ? 's' : '') + '</p>';
+      for (var i = 1; i <= 3; i++) { var s = document.getElementById('step' + i); if (s) s.style.display = 'none'; }
+      document.getElementById('progressBar').style.display = 'none';
+      document.getElementById('stepDone').style.display = '';
     });
-    // Fill progress lines
-    const fills = document.querySelectorAll('.progress-fill') as NodeListOf<HTMLElement>;
-    fills[0].style.width = n >= 2 ? '100%' : '0%';
-    if (fills[1]) fills[1].style.width = n >= 3 ? '100%' : '0%';
-    document.getElementById('quote')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function addRug() {
-    const wrap = document.getElementById('rugCards')!;
-    const card = makeCard();
-    wrap.appendChild(card);
-    card.querySelectorAll('select, input').forEach(e => {
-      e.addEventListener('input', calc); e.addEventListener('change', calc);
-    });
-    card.querySelector('.rc-remove')!.addEventListener('click', () => {
-      card.remove(); renumber(); calc();
-      if (!document.querySelector('.rug-card')) addRug();
-    });
-    renumber(); calc();
-  }
-
-  document.getElementById('addRugBtn')!.addEventListener('click', addRug);
-  document.getElementById('toStep2')!.addEventListener('click', () => { calc(); goTo(2); });
-  document.getElementById('toStep3')!.addEventListener('click', () => { calc(); goTo(3); });
-  document.getElementById('backTo1')!.addEventListener('click', () => goTo(1));
-  document.getElementById('backTo2')!.addEventListener('click', () => goTo(2));
-  document.querySelectorAll('#step2 input').forEach(e => e.addEventListener('change', calc));
-
-  document.getElementById('submitBtn')!.addEventListener('click', () => {
-    const name = (document.getElementById('leadName') as HTMLInputElement).value.trim();
-    const phone = (document.getElementById('leadPhone') as HTMLInputElement).value.trim();
-    const email = (document.getElementById('leadEmail') as HTMLInputElement).value.trim();
-    if (!name || !phone || !email) { alert('Please complete all required fields.'); return; }
-
-    const r = calc();
-    document.getElementById('successDetail')!.innerHTML =
-      `<p><strong>${name}</strong> &mdash; we'll reach you at ${email}</p>
-       <p>Estimate: <strong>$${r.total.toFixed(2)}</strong> for ${r.count} rug${r.count > 1 ? 's' : ''}</p>`;
-    [1, 2, 3].forEach(i => { const s = document.getElementById('step' + i); if (s) s.style.display = 'none'; });
-    document.getElementById('progressBar')!.style.display = 'none';
-    document.getElementById('stepDone')!.style.display = '';
-  });
-
-  addRug();
+  })();
 </script>
 
 <style>
@@ -388,31 +421,13 @@
     color: rgba(255,255,255,0.5);
     font-size: 0.9rem;
     line-height: 1.7;
-    margin-bottom: 28px;
+    margin-bottom: 12px;
   }
 
-  .ed-perks {
-    list-style: none;
-    margin-bottom: 32px;
-  }
-
-  .ed-perks li {
-    color: rgba(255,255,255,0.65);
-    font-size: 0.85rem;
-    padding: 6px 0;
-    padding-left: 20px;
-    position: relative;
-  }
-
-  .ed-perks li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 12px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--gold);
+  .ed-secondary {
+    margin-bottom: 32px !important;
+    color: rgba(255,255,255,0.35) !important;
+    font-size: 0.85rem !important;
   }
 
   .ed-image {
@@ -499,7 +514,7 @@
   }
 
   /* Rug cards */
-  .quote-form-card :global(.rug-card) {
+  .rug-card {
     border: 1px solid var(--stone-100);
     border-radius: var(--radius);
     padding: 20px;
@@ -507,7 +522,7 @@
     transition: border-color 0.3s;
   }
 
-  .quote-form-card :global(.rug-card:hover) {
+  .rug-card:hover {
     border-color: var(--stone-300);
   }
 
@@ -538,22 +553,26 @@
 
   .quote-form-card :global(.rc-remove:hover) { color: #b44; }
 
+  .rc-grid,
   .quote-form-card :global(.rc-grid) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 12px;
   }
 
+  .rc-field,
   .quote-form-card :global(.rc-field) {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
+  .rc-field-full,
   .quote-form-card :global(.rc-field-full) {
     grid-column: 1 / -1;
   }
 
+  .rc-field label,
   .quote-form-card :global(.rc-field label) {
     font-size: 0.68rem;
     font-weight: 600;
@@ -562,6 +581,8 @@
     color: var(--stone-500);
   }
 
+  .rc-field select,
+  .rc-field input,
   .quote-form-card :global(.rc-field select),
   .quote-form-card :global(.rc-field input) {
     padding: 10px 12px;
@@ -575,12 +596,15 @@
     -webkit-appearance: none;
   }
 
+  .rc-field select:focus,
+  .rc-field input:focus,
   .quote-form-card :global(.rc-field select:focus),
   .quote-form-card :global(.rc-field input:focus) {
     outline: none;
     border-color: var(--gold);
   }
 
+  .rc-foot,
   .quote-form-card :global(.rc-foot) {
     display: flex;
     justify-content: space-between;
@@ -590,7 +614,9 @@
     font-size: 0.8rem;
   }
 
+  .rc-sqft,
   .quote-form-card :global(.rc-sqft) { color: var(--stone-500); }
+  .rc-price,
   .quote-form-card :global(.rc-price) { font-weight: 600; color: var(--charcoal); }
 
   .btn-add {
@@ -636,9 +662,7 @@
   .btn-text:hover { color: var(--charcoal); }
 
   /* Step 2 */
-  .field-group {
-    margin-bottom: 24px;
-  }
+  .field-group { margin-bottom: 24px; }
 
   .field-label {
     display: block;
@@ -853,10 +877,7 @@
   }
 
   /* Success */
-  .success {
-    text-align: center;
-    padding: 20px 0;
-  }
+  .success { text-align: center; padding: 20px 0; }
 
   .success-check {
     width: 48px;
@@ -904,13 +925,13 @@
   @media (max-width: 900px) {
     .quote-layout { grid-template-columns: 1fr; }
     .quote-editorial { text-align: center; }
-    .ed-perks { display: inline-block; text-align: left; }
     .ed-image { display: none; }
     .ed-rule { margin: 0 auto 16px; }
   }
 
   @media (max-width: 600px) {
     .quote-form-card { padding: 24px 20px; }
+    .rc-grid,
     .quote-form-card :global(.rc-grid) { grid-template-columns: 1fr; }
     .toggle-row { grid-template-columns: 1fr; }
     .lead-grid { grid-template-columns: 1fr; }
